@@ -1,21 +1,10 @@
 ![Logo](logo.svg)
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/claudiodangelis/qrcp)](https://goreportcard.com/report/github.com/claudiodangelis/qrcp)
 # $ qrcp
 
 Transfer files over Wi-Fi from your computer to a mobile device by scanning a QR code without leaving the terminal.
 
-## tl;dr
-
-Send a file:
-```sh
-qrcp /path/to/MyDocument.pdf
-```
-Receive a file:
-```sh
-qrcp receive
-```
-
+[![Go Report Card](https://goreportcard.com/badge/github.com/claudiodangelis/qrcp)](https://goreportcard.com/report/github.com/claudiodangelis/qrcp)
 
 You can support development by donating with  [![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/claudiodangelis).
 
