@@ -9,6 +9,7 @@ func init() {
 	rootCmd.AddCommand(receiveCmd)
 	rootCmd.AddCommand(configCmd)
 	rootCmd.AddCommand(versionCmd)
+	rootCmd.AddCommand(completionCmd)
 	// Global command flags
 	rootCmd.PersistentFlags().BoolVarP(&quietFlag, "quiet", "q", false, "only print errors")
 	rootCmd.PersistentFlags().BoolVarP(&keepaliveFlag, "keep-alive", "k", false, "keep server alive after transferring")
@@ -20,6 +21,9 @@ func init() {
 	rootCmd.PersistentFlags().BoolVarP(&zipFlag, "zip", "z", false, "zip content before transferring")
 	rootCmd.PersistentFlags().StringVarP(&configFlag, "config", "c", "", "path to the config file, defaults to $HOME/.qrcp")
 	rootCmd.PersistentFlags().BoolVarP(&browserFlag, "browser", "b", false, "display the QR code in a browser window")
+	rootCmd.PersistentFlags().BoolVarP(&secureFlag, "secure", "s", false, "use https connection")
+	rootCmd.PersistentFlags().StringVar(&tlscertFlag, "tls-cert", "", "path to TLS certificate to use with HTTPS")
+	rootCmd.PersistentFlags().StringVar(&tlskeyFlag, "tls-key", "", "path to TLS private key to use with HTTPS")
 	// Receive command flags
 	receiveCmd.PersistentFlags().StringVarP(&outputFlag, "output", "o", "", "output directory for receiving files")
 }
@@ -36,6 +40,9 @@ var pathFlag string
 var listallinterfacesFlag bool
 var configFlag string
 var browserFlag bool
+var secureFlag bool
+var tlscertFlag string
+var tlskeyFlag string
 
 // The root command (`qrcp`) is like a shortcut of the `send` command
 var rootCmd = &cobra.Command{

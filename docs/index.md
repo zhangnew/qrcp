@@ -1,21 +1,10 @@
 ![Logo](logo.svg)
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/claudiodangelis/qrcp)](https://goreportcard.com/report/github.com/claudiodangelis/qrcp)
 # $ qrcp
 
 Transfer files over Wi-Fi from your computer to a mobile device by scanning a QR code without leaving the terminal.
 
-## tl;dr
-
-Send a file:
-```sh
-qrcp /path/to/MyDocument.pdf
-```
-Receive a file:
-```sh
-qrcp receive
-```
-
+[![Go Report Card](https://goreportcard.com/badge/github.com/claudiodangelis/qrcp)](https://goreportcard.com/report/github.com/claudiodangelis/qrcp)
 
 You can support development by donating with  [![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/claudiodangelis).
 
@@ -258,6 +247,19 @@ Pass the `--fqdn` (or `-d`) to use a fully qualified domain name instead of the 
 qrcp --fqdn example.com -i any -p 8080 MyRemoteDocument.pdf
 ```
 
+### HTTPS
+
+**qrcp** supports secure file transfers with HTTPS. To enable secure transfers you need a TLS certificate and the associated key.
+
+You can choose the path to the TLS certificate and keys from the `qrcp config` wizard, or, if you want, you can pass the `--tls-cert` and `--tls-key`:
+
+```sh
+qrcp --tls-cert /path/to/cert.pem --tls-key /path/to/cert.key MyDocument
+```
+
+A `--secure` flag is available too, you can use it to override the default value.
+
+
 ### Open in browser
 
 If you need a QR to be printed outside your terminal, you can pass the `--browser` flag. With this flag, `qrcp` will still print the QR code to the terminal, but it will also open a new window of your default browser to show the QR code.
@@ -275,6 +277,46 @@ It can be useful to keep the server alive after transferring the file, for examp
 # after the first transfer
 qrcp --keep-alive MyDocument.pdf
 ```
+
+## Shell completion scripts
+
+`qrcp` comes with a built-in `completion` command that generates shell completion scripts.
+
+### Bash:
+
+    $ source <(qrcp completion bash)
+
+To load completions for each session, execute once:
+
+Linux:
+
+    $ qrcp completion bash > /etc/bash_completion.d/qrcp
+
+_Note: if you don't want to install completion scripts system-wide, refer to [Bash Completion FAQ](https://github.com/scop/bash-completion/blob/master/README.md)_.
+
+MacOS:
+
+    $ qrcp completion bash > /usr/local/etc/bash_completion.d/qrcp
+
+### Zsh:
+
+If shell completion is not already enabled in your environment you will need to enable it.  You can execute the following once:
+
+    $ echo "autoload -U compinit; compinit" >> ~/.zshrc
+
+To load completions for each session, execute once:
+
+    $ qrcp completion zsh > "${fpath[1]}/_qrcp"
+
+You will need to start a new shell for this setup to take effect.
+
+### Fish:
+
+    $ qrcp completion fish | source
+
+To load completions for each session, execute once:
+
+    $ qrcp completion fish > ~/.config/fish/completions/qrcp.fish
 
 ## Authors
 

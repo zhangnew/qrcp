@@ -22,7 +22,7 @@ You can support development by donating with  [![Buy Me A Coffee](https://www.bu
 Join the **Telegram channel** [qrcp_dev](https://t.me/qrcp_dev) for news about the development.
 
 ## How does it work?
-![Screenshot](screenshot.png)
+![Screenshot](docs/screenshot.png)
 
 `qrcp` binds a web server to the address of your Wi-Fi network interface on a random port and creates a handler for it. The default handler serves the content and exits the program when the transfer is complete. When used to receive files, `qrcp` serves an upload page and handles the transfer.
 
@@ -37,11 +37,15 @@ Most QR apps can detect URLs in decoded text and act accordingly (i.e. open the 
 
 Send files to mobile:
 
-![screenshot](demo.gif)
+![screenshot](docs/demo.gif)
 
 Receive files from mobile:
 
-![Screenshot](mobile-demo.gif)
+![Screenshot](docs/mobile-demo.gif)
+
+## Tutorials
+
+- [Secure transfers with mkcert](https://claudiodangelis.com/qrcp/tutorials/secure-transfers-with-mkcert)
 
 # Installation
 
@@ -195,7 +199,7 @@ qrcp --list-all-interfaces config
 
 ### Configuration File
 
-The default configuration file is stored in $HOME/qrcp.json, however, you can specify the location of the config file by passing the `--config` flag:
+The default configuration file is stored in $HOME/.qrcp.json, however, you can specify the location of the config file by passing the `--config` flag:
 
 ```sh
 qrcp --config /tmp/qrcp.json MyDocument.pdf
@@ -258,6 +262,19 @@ Pass the `--fqdn` (or `-d`) to use a fully qualified domain name instead of the 
 qrcp --fqdn example.com -i any -p 8080 MyRemoteDocument.pdf
 ```
 
+### HTTPS
+
+**qrcp** supports secure file transfers with HTTPS. To enable secure transfers you need a TLS certificate and the associated key.
+
+You can choose the path to the TLS certificate and keys from the `qrcp config` wizard, or, if you want, you can pass the `--tls-cert` and `--tls-key`:
+
+```sh
+qrcp --tls-cert /path/to/cert.pem --tls-key /path/to/cert.key MyDocument
+```
+
+A `--secure` flag is available too, you can use it to override the default value.
+
+
 ### Open in browser
 
 If you need a QR to be printed outside your terminal, you can pass the `--browser` flag. With this flag, `qrcp` will still print the QR code to the terminal, but it will also open a new window of your default browser to show the QR code.
@@ -275,6 +292,47 @@ It can be useful to keep the server alive after transferring the file, for examp
 # after the first transfer
 qrcp --keep-alive MyDocument.pdf
 ```
+
+## Shell completion scripts
+
+`qrcp` comes with a built-in `completion` command that generates shell completion scripts.
+
+### Bash:
+
+    $ source <(qrcp completion bash)
+
+To load completions for each session, execute once:
+
+Linux:
+
+    $ qrcp completion bash > /etc/bash_completion.d/qrcp
+
+_Note: if you don't want to install completion scripts system-wide, refer to [Bash Completion FAQ](https://github.com/scop/bash-completion/blob/master/README.md)_.
+
+MacOS:
+
+    $ qrcp completion bash > /usr/local/etc/bash_completion.d/qrcp
+
+### Zsh:
+
+If shell completion is not already enabled in your environment you will need to enable it.  You can execute the following once:
+
+    $ echo "autoload -U compinit; compinit" >> ~/.zshrc
+
+To load completions for each session, execute once:
+
+    $ qrcp completion zsh > "${fpath[1]}/_qrcp"
+
+You will need to start a new shell for this setup to take effect.
+
+### Fish:
+
+    $ qrcp completion fish | source
+
+To load completions for each session, execute once:
+
+    $ qrcp completion fish > ~/.config/fish/completions/qrcp.fish
+
 
 ## Authors
 
