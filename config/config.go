@@ -262,27 +262,27 @@ func write(cfg Config) error {
 }
 
 func pathExists(path string) bool {
-    _, err := os.Stat(path)
-    return !os.IsNotExist(err)
+	_, err := os.Stat(path)
+	return !os.IsNotExist(err)
 }
 
 func setConfigFile(path string) error {
 	// If not explicitly set then use the default
 	if path == "" {
 		// First try legacy location
-		var legacyPath = filepath.Join(xdg.Home, ".qrcp.json")
-		if pathExists(legacyPath) {
-			configFile = legacyPath
+		var legacyConfigFile = filepath.Join(xdg.Home, ".qrcp.json")
+		if pathExists(legacyConfigFile) {
+			configFile = legacyConfigFile
 			return nil
 		}
 
 		// Else use modern location, first ensuring that the directory
 		// exists
-		var modernDir = filepath.Join(xdg.ConfigHome, "qrcp")
-		if !pathExists(modernDir) {
-			os.Mkdir(modernDir, 0744)
+		var configDir = filepath.Join(xdg.ConfigHome, "qrcp")
+		if !pathExists(configDir) {
+			os.Mkdir(configDir, 0744)
 		}
-		configFile = filepath.Join(modernDir, "config.json")
+		configFile = filepath.Join(configDir, "config.json")
 		return nil
 	}
 	absolutepath, err := filepath.Abs(path)
